@@ -27,7 +27,7 @@ function prepareCriteria(contact) {
     Criteria: criteria,
     Purchase: "1",
     Fields:
-      "isSameMailingOrExempt, Address, City, State, ZipFive, Beds, Baths, SqFt, LotSizeAcres, YearBuilt, AVM, CLTV, DelinquentAmount, DefaultAsOf, DefaultAmount, EquityPercent, NumberLoans, TotalLoanBalance, LastTransferRecDate, AssessedValue, FirstAmount, FirstDate, FirstPurpose, FirstRate, LastTransferValue, inTaxDelinquency, RadarID, AvailableEquity",
+      "isSameMailingOrExempt, PType, Address, City, State, ZipFive, Beds, Baths, SqFt, LotSizeAcres, YearBuilt, AVM, CLTV, DelinquentAmount, DefaultAsOf, DefaultAmount, EquityPercent, NumberLoans, TotalLoanBalance, LastTransferRecDate, AssessedValue, FirstAmount, FirstDate, FirstPurpose, FirstRate, LastTransferValue, inTaxDelinquency, RadarID, AvailableEquity, FirstAmountLTV, FirstLenderOriginal, FirstLoanType, FirstRateType, SecondAmount, SecondDate, SecondPurpose, SecondRate, SecondRateType, SecondAmountLTV, SecondLoanType, LastTransfer",
     Limit: "5",
     Sort: "",
     Start: "0",
