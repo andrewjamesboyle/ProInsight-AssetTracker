@@ -5,11 +5,13 @@ const {
 const { getDefaultItem } = require("./getDefaultItem");
 
 async function enrichData(contact) {
-  const response = await fetchPropertyDetailsForContact(contact);
-  console.log("PR Response:", response);
+  const { results, confidenceScore } = await fetchPropertyDetailsForContact(
+    contact
+  );
+  console.log("PR Response:", results);
 
   // Access the results array from the response data
-  const properties = response;
+  const properties = results;
 
   if (!properties || properties.length === 0) {
     console.log("No results found for contact:", contact);
@@ -33,7 +35,8 @@ async function enrichData(contact) {
       // Premium Fields
       "Primary or Income Property":
         property.isSameMailingOrExempt === 1 ? "Primary" : "Income",
-      "Property Type": property.PType || null,
+      "Property Type": property.AdvancedPropertyType || null,
+      "Is Site Vacant": property.isSiteVacant === 1 ? "Vacant" : "Occupied",
       SqFt: property.SqFt || null,
       Beds: property.Beds || null,
       Baths: property.Baths || null,
@@ -68,6 +71,7 @@ async function enrichData(contact) {
       "In Tax Delinquency": property.inTaxDelinquency || null,
       "Delinquent Amount": property.DelinquentAmount || null,
       "Property Radar ID": property.RadarID || null,
+      // "Confidence Score": confidenceScore,
     }));
     console.log("Sample mapped property:", enrichedData[0]);
   } catch (error) {

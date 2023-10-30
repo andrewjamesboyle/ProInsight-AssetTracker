@@ -10,12 +10,14 @@ async function fetchPropertyDetailsForContact(contact) {
       Authorization: `Bearer ${process.env.PROPERTY_RADAR_KEY}`,
     };
 
-    const body = prepareCriteria(contact);
+    const { CriteriaObject, confidenceScore } = prepareCriteria(contact);
 
-    if (!body) {
+    if (!CriteriaObject) {
       console.error("Criteria preparation failed for contact:", contact);
       return [];
     }
+
+    const body = CriteriaObject;
 
     const urlParams = {
       Purchase: body.Purchase,
@@ -41,7 +43,7 @@ async function fetchPropertyDetailsForContact(contact) {
         "Received undefined data from the API for contact:",
         contact
       );
-      return [];
+      return { results: [], confidenceScore };
     }
 
     if (response.data.results && response.data.results.length === 0) {
@@ -49,10 +51,10 @@ async function fetchPropertyDetailsForContact(contact) {
         "Received empty results from the API for contact owner name:",
         contact["Owner Name"]
       );
-      return [];
+      return { results: [], confidenceScore };
     }
 
-    return response.data.results || [];
+    return { results: response.data.results || [], confidenceScore };
   } catch (err) {
     console.error(
       `Failed to fetch for contact ${contact.name}: ${err.message}`
